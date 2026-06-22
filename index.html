@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwasthAI - Indian Healthcare Awareness & Early Intervention Portal</title>
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Emergency Alert banner -->
+  <div id="emergency-banner" class="emergency-banner hidden">
+    <div class="banner-content">
+      <span class="pulse-dot"></span>
+      <span id="emergency-text">EMERGENCY LINE: Dial 108 for Medical Emergencies (National Health Helpline: 1075)</span>
+      <button class="close-banner" onclick="toggleEmergencyBanner(false)">&times;</button>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <!-- Lotus + Cross SVG -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 9 7 9 10C9 13.5 10.5 15.5 12 15.5C13.5 15.5 15 13.5 15 10C15 7 12 2 12 2Z" fill="var(--primary-light)" opacity="0.8"/>
+            <path d="M12 22C12 22 15 17 15 14C15 10.5 13.5 8.5 12 8.5C10.5 8.5 9 10.5 9 14C9 17 12 22 12 22Z" fill="var(--primary)"/>
+            <path d="M2 12C2 12 7 9 10 9C13.5 9 15.5 10.5 15.5 12C15.5 13.5 13.5 15 10 15C7 15 2 12 2 12Z" fill="var(--secondary)" opacity="0.6"/>
+            <path d="M22 12C22 12 17 15 14 15C10.5 15 8.5 13.5 8.5 12C8.5 10.5 10.5 9 14 9C17 9 22 12 22 12Z" fill="var(--primary-dark)" opacity="0.9"/>
+            <path d="M6 6L18 18M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-main">SwasthAI</span>
+          <span class="logo-sub">Bharat Care</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span data-localize="nav_dashboard">Dashboard</span>
+        </button>
+        <button class="nav-item" data-tab="checker">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span data-localize="nav_checker">Symptom Checker</span>
+        </button>
+        <button class="nav-item" data-tab="ayush">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"></path><path d="M12 6v6l4 2"></path></svg>
+          <span data-localize="nav_ayush">Ghar Ke Nuskhe</span>
+        </button>
+        <button class="nav-item" data-tab="reminders">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><line x1="12" y1="1" x2="12" y2="3"></line></svg>
+          <span data-localize="nav_reminders">UIP & Reminders</span>
+        </button>
+        <button class="nav-item" data-tab="yoga">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h.01M6 10h.01M9 15h6M12 18v-3"></path><circle cx="12" cy="7" r="4"></circle><path d="M5 22c0-3.3 2.7-6 6-6h2c3.3 0 6 2.7 6 6"></path></svg>
+          <span data-localize="nav_yoga">Yoga & Pranayama</span>
+        </button>
+        <button class="nav-item" data-tab="hospitals">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span data-localize="nav_hospitals">Hospital Finder</span>
+        </button>
+        <button class="nav-item" data-tab="schemes">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span data-localize="nav_schemes">Govt Schemes</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="disclaimer-title">⚠️ Disclaimer</p>
+        <p class="disclaimer-text" data-localize="disclaimer_short">SwasthAI is for educational purposes and early awareness. Always consult a certified medical practitioner (MBBS/MD) for health problems.</p>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-layout">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <h1 id="view-title" data-localize="title_dashboard">Arogya Dashboard</h1>
+        </div>
+
+        <div class="header-right">
+          <!-- Emergency Button -->
+          <button class="emergency-btn" onclick="toggleEmergencyBanner(true)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span data-localize="emergency_btn">Emergency 108</span>
+          </button>
+
+          <!-- Language Selector -->
+          <div class="lang-selector-container">
+            <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <select id="lang-select" class="lang-select">
+              <option value="en">English</option>
+              <option value="hi">हिन्दी (Hindi)</option>
+              <option value="bn">বাংলা (Bengali)</option>
+              <option value="te">తెలుగు (Telugu)</option>
+              <option value="ta">தமிழ் (Tamil)</option>
+              <option value="mr">मराठी (Marathi)</option>
+            </select>
+          </div>
+
+          <!-- India Flag badge -->
+          <div class="badge-india">
+            <span class="flag-stripe orange"></span>
+            <span class="flag-stripe white">🌀</span>
+            <span class="flag-stripe green"></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- View Containers -->
+      <div class="content-scroll-wrapper">
+
+        <!-- 1. DASHBOARD VIEW -->
+        <section id="dashboard" class="tab-content active">
+          <div class="welcome-banner">
+            <div class="welcome-text">
+              <h2 id="greeting-text">Namaste, Swasthya Seeker 🙏</h2>
+              <p data-localize="welcome_subtitle">Your digital companion for healthcare awareness, prevention, and early intervention in India.</p>
+            </div>
+            <div class="welcome-stats">
+              <div class="stat-bubble">
+                <span class="stat-num" id="active-reminders-count">0</span>
+                <span class="stat-label" data-localize="stat_reminders">Due Today</span>
+              </div>
+              <div class="stat-bubble">
+                <span class="stat-num" id="yoga-streak-count">0</span>
+                <span class="stat-label" data-localize="stat_streak">Yoga Streak</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-layout cols-3">
+            <!-- Quick Actions -->
+            <div class="card glass">
+              <div class="card-header">
+                <h3 data-localize="title_quick_actions">Quick Actions</h3>
+              </div>
+              <div class="card-body vertical-buttons">
+                <button class="action-tile btn-checker" onclick="switchTab('checker')">
+                  <span class="tile-icon">🩺</span>
+                  <div class="tile-desc">
+                    <strong data-localize="tile_check_title">Symptom Checker</strong>
+                    <span data-localize="tile_check_sub">Scan early warnings</span>
+                  </div>
+                </button>
+                <button class="action-tile btn-ayush" onclick="switchTab('ayush')">
+                  <span class="tile-icon">🌿</span>
+                  <div class="tile-desc">
+                    <strong data-localize="tile_remedy_title">Ghar Ke Nuskhe</strong>
+                    <span data-localize="tile_remedy_sub">Traditional AYUSH cures</span>
+                  </div>
+                </button>
+                <button class="action-tile btn-timer" onclick="switchTab('yoga')">
+                  <span class="tile-icon">🧘</span>
+                  <div class="tile-desc">
+                    <strong data-localize="tile_yoga_title">Pranayama Timer</strong>
+                    <span data-localize="tile_yoga_sub">Daily breathing routine</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Daily Ayush Tip & Health Awareness -->
+            <div class="card glass highlight-card">
+              <div class="card-header">
+                <span class="card-tag" data-localize="tag_ayush">AYUSH Tips</span>
+                <h3 data-localize="title_daily_wisdom">Daily Health Wisdom</h3>
+              </div>
+              <div class="card-body">
+                <div class="wisdom-content">
+                  <span class="wisdom-icon">🫖</span>
+                  <p id="daily-tip-text">"Drink warm water infused with tulsi and ginger in the morning to enhance metabolic rate, clear respiratory pathways, and boost immunity."</p>
+                  <button class="btn-text" id="btn-next-tip" onclick="loadNextTip()">
+                    <span data-localize="next_tip">Next Tip</span> &rarr;
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Urgent Indian Health Schemes -->
+            <div class="card glass">
+              <div class="card-header">
+                <h3 data-localize="title_schemes_card">National Health Support</h3>
+              </div>
+              <div class="card-body">
+                <div class="scheme-preview">
+                  <div class="scheme-icon-badge">🇮🇳</div>
+                  <h4 data-localize="pmjay_card_title">Ayushman Bharat (PM-JAY)</h4>
+                  <p data-localize="pmjay_card_desc">Get up to ₹5 Lakhs per family per year for secondary and tertiary care hospitalization.</p>
+                  <button class="btn-outline btn-full" onclick="switchTab('schemes')" data-localize="btn_check_eligibility">Check Eligibility</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Dashboard Grid: UIP status & Article highlight -->
+          <div class="grid-layout cols-2 mt-4">
+            <div class="card glass">
+              <div class="card-header">
+                <h3 data-localize="dashboard_vaccines">Vaccination Schedule (UIP)</h3>
+              </div>
+              <div class="card-body">
+                <p data-localize="dashboard_vaccines_desc">Keep track of your child's immunization milestones under India's National Immunization Programme.</p>
+                <div id="uip-dash-list" class="uip-preview-list">
+                  <!-- JS injected content -->
+                  <div class="dashboard-empty-state">
+                    <span class="empty-icon">💉</span>
+                    <p data-localize="uip_empty_dashboard">No milestones set. Go to UIP tab to calculate immunization calendar.</p>
+                  </div>
+                </div>
+                <button class="btn-primary mt-3" onclick="switchTab('reminders')" data-localize="btn_open_uip">Manage UIP Schedule</button>
+              </div>
+            </div>
+
+            <div class="card glass">
+              <div class="card-header">
+                <h3 data-localize="early_intervention_title">Early Intervention & Awareness</h3>
+              </div>
+              <div class="card-body">
+                <div class="awareness-card">
+                  <div class="awareness-image-placeholder">
+                    <div class="pulse-ring"></div>
+                    <span class="heart-pulse-icon">❤️</span>
+                  </div>
+                  <h4 data-localize="early_detect_title">Identifying Cardiovascular Warnings</h4>
+                  <p data-localize="early_detect_desc">Know the critical differences between regular acidity and early signs of myocardial infarction (Heart Attack). Severe chest discomfort radiating to left arm or back is an emergency. Call 108 immediately.</p>
+                  <button class="btn-outline" onclick="openAwarenessModal()" data-localize="btn_learn_more">Learn Warning Signs</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. SYMPTOM CHECKER VIEW -->
+        <section id="checker" class="tab-content">
+          <div class="checker-container">
+            <div class="checker-sidebar card glass">
+              <h3 data-localize="symptom_header">Select Symptoms</h3>
+              <p class="subtitle" data-localize="symptom_instruction">Choose any warning signs you are experiencing:</p>
+              
+              <div class="symptom-selector-grid">
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="chest_pain" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_chest_pain">Chest Pain / Tightness</span>
+                </label>
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="shortness_breath" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_breath">Shortness of Breath</span>
+                </label>
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="high_fever" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_fever">High Fever (>102°F)</span>
+                </label>
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="cough" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_cough">Persistent Cough</span>
+                </label>
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="sore_throat" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_throat">Sore Throat</span>
+                </label>
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="severe_headache" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_headache">Severe Headache</span>
+                </label>
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="fatigue" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_fatigue">Severe Fatigue</span>
+                </label>
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="acidity" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_acidity">Acidity / Indigestion</span>
+                </label>
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="body_ache" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_body_ache">Severe Body Ache</span>
+                </label>
+                <label class="symptom-checkbox">
+                  <input type="checkbox" value="dizziness" class="symptom-input">
+                  <span class="chk-label" data-localize="sym_dizziness">Dizziness / Fainting</span>
+                </label>
+              </div>
+
+              <!-- Extra inputs -->
+              <div class="form-group mt-3">
+                <label data-localize="lbl_duration">Symptom Duration:</label>
+                <select id="symptom-duration" class="form-control">
+                  <option value="1" data-localize="dur_1">Less than 24 hours</option>
+                  <option value="3" data-localize="dur_3">1 to 3 days</option>
+                  <option value="7" data-localize="dur_7">1 week or more</option>
+                </select>
+              </div>
+
+              <button class="btn-primary btn-full mt-4" id="btn-analyze-symptoms" onclick="analyzeSymptoms()">
+                <span data-localize="btn_analyze">Analyze early warnings</span>🩺
+              </button>
+            </div>
+
+            <div class="checker-results card glass">
+              <div id="checker-placeholder">
+                <div class="result-placeholder">
+                  <span class="large-icon">🤖</span>
+                  <h4 data-localize="checker_placeholder_title">SwasthAI Decision Engine</h4>
+                  <p data-localize="checker_placeholder_desc">Select symptoms on the left panel and click "Analyze" to see risk stratification, home care instructions, and emergency advisories.</p>
+                </div>
+              </div>
+
+              <div id="checker-analysis" class="hidden">
+                <div class="risk-meter-container">
+                  <span data-localize="lbl_risk_level">Risk Level:</span>
+                  <div class="risk-badge" id="risk-badge">LOW</div>
+                </div>
+
+                <div class="result-box mt-3" id="symptom-summary-box">
+                  <h4 data-localize="result_assessment">Potential Assessment:</h4>
+                  <p id="symptom-assessment-text"></p>
+                </div>
+
+                <div class="warning-alert mt-3 hidden" id="danger-signs-box">
+                  <h4 data-localize="danger_signs_header">🚨 Critical Warning Signs Detected:</h4>
+                  <p id="danger-signs-text"></p>
+                </div>
+
+                <div class="care-section mt-4">
+                  <h4 data-localize="remedy_title">Recommended Next Steps:</h4>
+                  <ul id="symptom-steps-list">
+                    <!-- Steps JS filled -->
+                  </ul>
+                </div>
+
+                <div class="disclaimer-alert mt-4">
+                  <strong data-localize="disclaimer_bold">Disclaimer:</strong> <span data-localize="disclaimer_full_text">This is a simulated screening for early intervention and education. It does not replace clinical judgment by a physician. If symptoms are severe, go to the nearest emergency center immediately.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. TRADITIONAL CARE VIEW (GHAR KE NUSKHE) -->
+        <section id="ayush" class="tab-content">
+          <div class="remedies-toolbar">
+            <div class="search-bar-container">
+              <input type="text" id="remedy-search" placeholder="Search remedy (e.g. Tulsi, Cough, Haldi)..." onkeyup="filterRemedies()">
+              <span class="search-icon">🔍</span>
+            </div>
+            <div class="filter-tabs" id="remedy-category-filters">
+              <button class="filter-btn active" data-category="all" data-localize="filter_all">All Categories</button>
+              <button class="filter-btn" data-category="immunity" data-localize="filter_immunity">Immunity Boost</button>
+              <button class="filter-btn" data-category="respiratory" data-localize="filter_resp">Cold & Cough</button>
+              <button class="filter-btn" data-category="digestive" data-localize="filter_digest">Digestion</button>
+              <button class="filter-btn" data-category="stress" data-localize="filter_sleep">Stress & Sleep</button>
+            </div>
+          </div>
+
+          <div class="grid-layout cols-3" id="remedies-grid">
+            <!-- Injected via JavaScript -->
+          </div>
+        </section>
+
+        <!-- 4. UIP & REMINDERS VIEW -->
+        <section id="reminders" class="tab-content">
+          <div class="tab-subheaders">
+            <button class="sub-tab-btn active" onclick="switchReminderSubTab('uip')">Universal Immunization Schedule (UIP)</button>
+            <button class="sub-tab-btn" onclick="switchReminderSubTab('pills')">Daily Medication Reminders</button>
+          </div>
+
+          <!-- Sub-Tab: UIP -->
+          <div id="uip-tab-content" class="reminder-sub-content active">
+            <div class="grid-layout cols-3-1">
+              <div class="card glass">
+                <div class="card-header">
+                  <h3 data-localize="uip_header">UIP Immunization Milestone Calculator</h3>
+                </div>
+                <div class="card-body">
+                  <p data-localize="uip_desc">Calculate your child's immunization dates based on standard Ministry of Health guidelines. Enter the child's Date of Birth to generate the timeline:</p>
+                  
+                  <div class="dob-calculator-form mt-3">
+                    <div class="form-group inline-form">
+                      <label for="child-name" data-localize="lbl_child_name">Child's Name:</label>
+                      <input type="text" id="child-name" placeholder="Enter Child Name" class="form-control">
+                    </div>
+                    <div class="form-group inline-form mt-2">
+                      <label for="child-dob" data-localize="lbl_child_dob">Date of Birth:</label>
+                      <input type="date" id="child-dob" class="form-control">
+                    </div>
+                    <button class="btn-primary mt-3" onclick="calculateUIPSchedule()" data-localize="btn_calc_schedule">Generate Vaccination Schedule</button>
+                  </div>
+
+                  <div id="uip-schedule-results" class="uip-schedule-results mt-4 hidden">
+                    <div class="uip-results-header">
+                      <h4 id="uip-results-title">Vaccination Calendar</h4>
+                      <button class="btn-outline btn-sm" onclick="clearUIPSchedule()" data-localize="btn_clear">Clear Schedule</button>
+                    </div>
+                    <div class="vaccine-timeline mt-3" id="vaccine-timeline-container">
+                      <!-- Injected via JS -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sidebar Info Card -->
+              <div class="card glass self-start">
+                <div class="card-header">
+                  <h3 data-localize="uip_quick_facts">UIP Quick Facts</h3>
+                </div>
+                <div class="card-body info-bullets text-sm">
+                  <ul>
+                    <li>🌱 <strong>BCG:</strong> Given at birth or as early as possible before 1 year. Protects against Tuberculosis.</li>
+                    <li>💧 <strong>OPV:</strong> Oral Polio Vaccine drops. Given at birth, 6, 10, and 14 weeks.</li>
+                    <li>🧬 <strong>Pentavalent:</strong> Protects against Diphtheria, Pertussis, Tetanus, Hepatitis B, and Hib. Given at 6, 10, and 14 weeks.</li>
+                    <li>🌀 <strong>Rotavirus:</strong> Given at 6, 10, and 14 weeks. Prevents severe diarrhea in infants.</li>
+                    <li>🍎 <strong>MR:</strong> Measles & Rubella. First dose at 9-12 months, second at 16-24 months.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-Tab: Pill Reminder -->
+          <div id="pills-tab-content" class="reminder-sub-content">
+            <div class="grid-layout cols-3-1">
+              <div class="card glass">
+                <div class="card-header">
+                  <h3 data-localize="med_reminders_header">Active Daily Pill Reminders</h3>
+                </div>
+                <div class="card-body">
+                  <div id="pill-reminders-list">
+                    <!-- Dynamic reminders table -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="card glass self-start">
+                <div class="card-header">
+                  <h3 data-localize="add_reminder_header">Add Reminder</h3>
+                </div>
+                <div class="card-body">
+                  <form id="pill-reminder-form" onsubmit="addPillReminder(event)">
+                    <div class="form-group">
+                      <label for="med-name" data-localize="lbl_med_name">Medicine Name:</label>
+                      <input type="text" id="med-name" required placeholder="e.g. Paracetamol / Vitamin D" class="form-control">
+                    </div>
+                    <div class="form-group mt-2">
+                      <label for="med-dose" data-localize="lbl_med_dose">Dosage:</label>
+                      <input type="text" id="med-dose" required placeholder="e.g. 1 Tablet / 5ml syrup" class="form-control">
+                    </div>
+                    <div class="form-group mt-2">
+                      <label for="med-time" data-localize="lbl_med_time">Time:</label>
+                      <input type="time" id="med-time" required class="form-control">
+                    </div>
+                    <div class="form-group mt-2">
+                      <label for="med-freq" data-localize="lbl_med_freq">Frequency:</label>
+                      <select id="med-freq" class="form-control">
+                        <option value="daily" data-localize="freq_daily">Once Daily</option>
+                        <option value="twice" data-localize="freq_twice">Twice Daily</option>
+                        <option value="thrice" data-localize="freq_thrice">Three Times Daily</option>
+                        <option value="weekly" data-localize="freq_weekly">Weekly</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn-primary btn-full mt-3" data-localize="btn_save_reminder">Save Reminder</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. YOGA & PRANAYAMA VIEW -->
+        <section id="yoga" class="tab-content">
+          <div class="grid-layout cols-2">
+            <!-- Practices selection -->
+            <div class="card glass">
+              <div class="card-header">
+                <h3 data-localize="yoga_practices_title">Pranayama Breathing Routines</h3>
+              </div>
+              <div class="card-body">
+                <p data-localize="yoga_practices_desc">Breathing exercises (Pranayama) are clinically shown to enhance lung capacity, calm the sympathetic nervous system, and lower blood pressure. Select an exercise to begin your guided session:</p>
+                
+                <div class="pranayama-list mt-3">
+                  <div class="pranayama-card active" data-pranayama="anulom" onclick="selectPranayama('anulom')">
+                    <span class="pranayama-icon">🌀</span>
+                    <div class="pranayama-details">
+                      <h4 data-localize="pran_anulom_name">Anulom Vilom (Alternate Nostril)</h4>
+                      <p data-localize="pran_anulom_desc">Balances energy channels, enhances focus, and promotes cardiovascular efficiency. Ratio: 4s In, 4s Hold, 4s Out.</p>
+                    </div>
+                  </div>
+
+                  <div class="pranayama-card" data-pranayama="kapalbhati" onclick="selectPranayama('kapalbhati')">
+                    <span class="pranayama-icon">🔥</span>
+                    <div class="pranayama-details">
+                      <h4 data-localize="pran_kapal_name">Kapalbhati (Breath of Fire)</h4>
+                      <p data-localize="pran_kapal_desc">Active forceful exhalation, passive inhalation. Energizes nervous system, boosts metabolic health. Speed: 1.5s per cycle.</p>
+                    </div>
+                  </div>
+
+                  <div class="pranayama-card" data-pranayama="bhramari" onclick="selectPranayama('bhramari')">
+                    <span class="pranayama-icon">🐝</span>
+                    <div class="pranayama-details">
+                      <h4 data-localize="pran_bhram_name">Bhramari (Humming Bee Breath)</h4>
+                      <p data-localize="pran_bhram_desc">Calms brain cells, reduces anger, mitigates mild headache, and enhances nitric oxide release in sinuses.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Breathing Visualizer and timer -->
+            <div class="card glass align-center justify-center">
+              <div class="breath-visualizer-card">
+                <h3 id="current-pranayama-title">Anulom Vilom</h3>
+                <p class="subtitle" id="current-pranayama-instruction">Click Start to begin</p>
+
+                <!-- Animated breathing ring -->
+                <div class="breathing-ring-wrapper">
+                  <div class="breathing-circle-outer"></div>
+                  <div class="breathing-circle-inner" id="breathing-circle"></div>
+                  <div class="timer-countdown" id="breathing-timer-clock">02:00</div>
+                </div>
+
+                <div class="breath-status-label" id="breath-status-text">Ready</div>
+
+                <div class="breath-controls-row mt-4">
+                  <button class="btn-primary btn-lg" id="btn-yoga-start" onclick="startYogaTimer()" data-localize="btn_start_yoga">Start Session</button>
+                  <button class="btn-outline btn-lg hidden" id="btn-yoga-pause" onclick="pauseYogaTimer()" data-localize="btn_pause_yoga">Pause</button>
+                  <button class="btn-outline btn-lg" id="btn-yoga-reset" onclick="resetYogaTimer()" data-localize="btn_reset_yoga">Reset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. HOSPITAL FINDER VIEW -->
+        <section id="hospitals" class="tab-content">
+          <div class="hospitals-toolbar">
+            <div class="search-bar-container">
+              <input type="text" id="hospital-search" placeholder="Enter city (e.g. Pune, Delhi) or Pin code..." onkeyup="filterHospitals()">
+              <span class="search-icon">🔍</span>
+            </div>
+            
+            <div class="filter-tabs" id="hospital-type-filters">
+              <button class="filter-btn active" data-type="all" data-localize="hosp_filter_all">All Facilities</button>
+              <button class="filter-btn" data-type="government" data-localize="hosp_filter_govt">Government Hospitals</button>
+              <button class="filter-btn" data-type="private" data-localize="hosp_filter_pvt">Private Multispecialty</button>
+              <button class="filter-btn" data-type="ayushman" data-localize="hosp_filter_ayush">Ayushman Bharat Empanelled</button>
+            </div>
+          </div>
+
+          <div class="hospital-finder-layout">
+            <div class="hospital-list-grid" id="hospitals-grid">
+              <!-- Injected via JavaScript -->
+            </div>
+
+            <!-- Mini Interactive Mock Map panel -->
+            <div class="hospital-map-container card glass">
+              <div class="mock-map-header">
+                <span class="map-badge" data-localize="map_live">🗺️ Interactive Radar</span>
+                <span class="map-pincode" id="map-pincode-display">Location: National Capital & Smart Cities</span>
+              </div>
+              <div class="mock-map-canvas" id="mock-map-canvas">
+                <div class="map-grid-bg"></div>
+                <!-- Nodes represent hospitals, placed absolutely, pulsing when selected -->
+                <div id="map-nodes-container"></div>
+                <!-- User node -->
+                <div class="user-map-node">
+                  <div class="pulse-ring"></div>
+                  <span class="user-dot">👤</span>
+                </div>
+              </div>
+              <div class="mock-map-footer">
+                <p data-localize="map_disclaimer">Distances shown are simulated estimates from your mock location coordinates.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. HEALTH SCHEMES VIEW -->
+        <section id="schemes" class="tab-content">
+          <div class="grid-layout cols-3-1">
+            
+            <!-- Schemes list -->
+            <div class="card glass">
+              <div class="card-header">
+                <h3 data-localize="schemes_title">National Health Protection Schemes</h3>
+              </div>
+              <div class="card-body">
+                <div class="schemes-list-container">
+                  <!-- Scheme 1 -->
+                  <div class="scheme-details-card">
+                    <div class="scheme-title-row">
+                      <h4>Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana (PM-JAY)</h4>
+                      <span class="scheme-badge-gov">GOVT OF INDIA</span>
+                    </div>
+                    <p class="scheme-desc">World's largest government-funded healthcare program. Provides a cover of ₹5,00,000 per family per year for secondary and tertiary care hospitalization to over 12 crore poor and vulnerable families.</p>
+                    <div class="scheme-highlights">
+                      <div class="highlight-item">👍 Cashless hospitalization at all empanelled hospitals</div>
+                      <div class="highlight-item">🩺 Pre-existing diseases covered from day one</div>
+                      <div class="highlight-item">💊 Covers up to 3 days of pre-hospitalization & 15 days post-hospitalization</div>
+                    </div>
+                  </div>
+
+                  <!-- Scheme 2 -->
+                  <div class="scheme-details-card mt-4">
+                    <div class="scheme-title-row">
+                      <h4>Pradhan Mantri Bhartiya Janaushadhi Pariyojana (PMBJP)</h4>
+                      <span class="scheme-badge-gov">GOVT OF INDIA</span>
+                    </div>
+                    <p class="scheme-desc">Campaign launched by the Department of Pharmaceuticals to provide quality medicines at affordable prices to all through special Kendra outlets. Generic medicines are available at 50% to 90% cheaper rates than branded counterparts.</p>
+                    <div class="scheme-highlights">
+                      <div class="highlight-item">💊 Over 1800+ high-quality generic drugs and 280+ surgical items</div>
+                      <div class="highlight-item">🏪 Available across 10,000+ Jan Aushadhi Kendras in India</div>
+                      <div class="highlight-item">🔬 Standardized lab testing for biological efficacy before release</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Eligibility Calculator widget -->
+            <div class="card glass self-start">
+              <div class="card-header">
+                <h3 data-localize="eligibility_header">PM-JAY Eligibility Checker</h3>
+              </div>
+              <div class="card-body">
+                <div id="eligibility-wizard-box">
+                  <p class="desc-text" data-localize="eligibility_desc">Answer these questions based on SECC 2011 parameters to check if you might qualify for Ayushman Bharat:</p>
+                  
+                  <div class="wizard-step active" data-step="1">
+                    <p class="wizard-question" data-localize="q1_text">1. Are you living in a rural area in a house with one room or less, having mud/kutcha walls and roof?</p>
+                    <div class="wizard-answers">
+                      <button class="btn-primary" onclick="setWizardAnswer(1, true)" data-localize="ans_yes">Yes</button>
+                      <button class="btn-outline" onclick="setWizardAnswer(1, false)" data-localize="ans_no">No</button>
+                    </div>
+                  </div>
+
+                  <div class="wizard-step" data-step="2">
+                    <p class="wizard-question" data-localize="q2_text">2. Does your household lack an adult male member between the ages of 16 and 59?</p>
+                    <div class="wizard-answers">
+                      <button class="btn-primary" onclick="setWizardAnswer(2, true)" data-localize="ans_yes">Yes</button>
+                      <button class="btn-outline" onclick="setWizardAnswer(2, false)" data-localize="ans_no">No</button>
+                    </div>
+                  </div>
+
+                  <div class="wizard-step" data-step="3">
+                    <p class="wizard-question" data-localize="q3_text">3. Is your household landless and deriving major income from manual casual labor?</p>
+                    <div class="wizard-answers">
+                      <button class="btn-primary" onclick="setWizardAnswer(3, true)" data-localize="ans_yes">Yes</button>
+                      <button class="btn-outline" onclick="setWizardAnswer(3, false)" data-localize="ans_no">No</button>
+                    </div>
+                  </div>
+
+                  <div class="wizard-step" id="wizard-result">
+                    <h4 data-localize="wizard_result_header">Assessment Result:</h4>
+                    <div class="result-box-eligibility" id="eligibility-result-box">
+                      <!-- JS filled -->
+                    </div>
+                    <button class="btn-outline btn-full mt-3" onclick="resetWizard()" data-localize="btn_restart">Check Again</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Medical Awareness Warning Modal -->
+  <div id="awareness-modal" class="modal hidden">
+    <div class="modal-content glass">
+      <div class="modal-header">
+        <h3 data-localize="modal_warn_title">Critical Warnings & Early Intervention Guide</h3>
+        <button class="close-modal" onclick="closeAwarenessModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 data-localize="modal_heading_cardiac">1. Cardiovascular Emergency vs Acidity</h4>
+        <p data-localize="modal_text_cardiac">In India, many heart attacks are self-diagnosed as "gas" or "acidity", leading to fatal delays in treatment. Here are key warning signals:</p>
+        <table class="comparison-table mt-2">
+          <thead>
+            <tr>
+              <th data-localize="th_symptom">Feature</th>
+              <th data-localize="th_acidity">Acidity</th>
+              <th data-localize="th_cardiac">Cardiac Emergency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-localize="td_pain_loc">Pain Location</td>
+              <td data-localize="td_acidity_pain">Upper stomach, moving up to throat</td>
+              <td data-localize="td_cardiac_pain">Center of chest, radiating to left arm, neck, jaw or back</td>
+            </tr>
+            <tr>
+              <td data-localize="td_type">Type of Discomfort</td>
+              <td data-localize="td_acidity_type">Burning, worsens when lying flat</td>
+              <td data-localize="td_cardiac_type">Heavy squeezing pressure, tightness, feeling like a heavy weight</td>
+            </tr>
+            <tr>
+              <td data-localize="td_triggers">Associated Symptoms</td>
+              <td data-localize="td_acidity_trig">Sour burps, relived by antacids</td>
+              <td data-localize="td_cardiac_trig">Profuse cold sweating, vomiting, dizziness, shortness of breath</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4 class="mt-4" data-localize="modal_heading_stroke">2. Stroke Warning - Act F.A.S.T.</h4>
+        <p data-localize="modal_text_stroke">If a person shows signs of stroke, brain cells are dying every second. Check these points:</p>
+        <div class="fast-grid mt-2">
+          <div class="fast-card"><strong>F - Face</strong><br>Ask them to smile. Does one side of the face droop?</div>
+          <div class="fast-card"><strong>A - Arms</strong><br>Ask them to raise both arms. Does one drift downward?</div>
+          <div class="fast-card"><strong>S - Speech</strong><br>Ask them to repeat a simple phrase. Is their speech slurred?</div>
+          <div class="fast-card"><strong>T - Time</strong><br>If any signs are positive, note the time and call 108 immediately.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" onclick="closeAwarenessModal()" data-localize="btn_close">I Understand</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Banner Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- JavaScript App Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
