@@ -570,6 +570,8 @@ with tab_mandi:
             </div>
             """, unsafe_allow_html=True)
             
+
+
             # Simple Chart visualization representing price fluctuations
             st.write("📈 **Mandi Price Trend (Last 5 Months)**")
             prices = [4200, 4350, 4500, 4420, 4800] if mandi_crop.lower() == "soybean" else [6200, 6400, 6800, 6750, 7150]
