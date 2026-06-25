@@ -1,5 +1,5 @@
-import subprocess, sys
+# Entry point for Streamlit Cloud
+# Streamlit Cloud runs this file directly, so we exec krishi_mitra.py
+# in the current module context so all st.* calls render correctly.
 
-if __name__ == "__main__":
-    subprocess.run([sys.executable, "-m", "streamlit", "run", "krishi_mitra.py"], check=True)
-
+exec(open("krishi_mitra.py", encoding="utf-8").read())
