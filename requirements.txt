@@ -1,5 +1,5 @@
 streamlit
 opencv-python-headless
-pillow
+pillow>=10.0.0
 numpy
 requests
